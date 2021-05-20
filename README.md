@@ -1,6 +1,6 @@
 # CncSimulator
 
-##의존성
+## 의존성
 * PyQt5 5.15.2
 * kafka-python 2.0.2
 
