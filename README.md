@@ -20,4 +20,4 @@
 * StopSendData: 정지 버튼이 눌리면 호출되는 함수
 * StartSendData: 시작 버튼이 눌리면 호출되는 함수
 * SendData: 데이터를 카프카로 produce하고 UI console에 로그를 출력하는 함수<br>
-`space``space`- 프로그램 시작시 새로운 스레드에 할당되어 프로그램 종료시까지 끝없이 실행
+&nbsp;&nbsp;&nbsp;- 프로그램 시작시 새로운 스레드에 할당되어 프로그램 종료시까지 끝없이 실행
