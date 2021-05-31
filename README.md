@@ -3,6 +3,8 @@
 ## 의존성
 * PyQt5 5.15.2
 * kafka-python 2.0.2
+* python 3.8.5
+* pyinstaller 4.3
 
 ## 함수 구성
 * __init__: 프로그램 실행시 변수를 초기화하는 함수
@@ -21,3 +23,26 @@
 * StartSendData: 시작 버튼이 눌리면 호출되는 함수
 * SendData: 데이터를 카프카로 produce하고 UI console에 로그를 출력하는 함수<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- 프로그램 시작시 새로운 스레드에 할당되어 프로그램 종료시까지 끝없이 실행
+
+## pyinstaller를 사용한 exe 실행파일 변환
+(window 환경 권장)
+* pyinstaller --onefile CncSimulatorSprint1.py  --icon=logo2.ico -w --name=CNC시뮬레이터sprint1
+--onefile: 하나의 실행파일로 생성
+--icon: 실행파일 아이콘 지정
+-w: 콘솔화면 없이 실행
+--name: 실행 파일 이름 지정
+
+## 실행 화면
+![image](https://user-images.githubusercontent.com/33340094/120144962-c6cb8980-c21d-11eb-8097-6af431078e6b.png)
+open: 파일 가져오기 버튼 
+file info: 가져온 파일 정보 내용 보여주는 콘솔
+anomaly data type: load spindle 데이터를 일정한 값으로 치환하거나, 일정량 증가, 감소 시키는 컨트롤 박스
+start index: 시작 인덱스 지정
+end index: 끝 인덱스 지정
+interval: 데이터 전송 간격 지정
+start 버튼: 데이터 전송 시작 버튼
+pause 버튼: 데이터 일시정지 버튼. 재전송 시작시 멈췄던 부분부터 다시 전송
+stop 버튼: 데이터 전송 중지 버튼. 재전송 시작시 처음부터 전송
+clear 버튼: 전송로그 콘솔 부분이 초기화됨
+stream loadspindle 콘솔: 실시간으로 보내는 데이터를 로그형태로 보여줌
+
