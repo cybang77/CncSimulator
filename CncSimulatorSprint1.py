@@ -196,7 +196,6 @@ class Ui_CNC_Simulator(object):
         self.unitInput.setStyleSheet("background-color: #4A515D; Color: white; border: 1.5px solid gray; border-radius: 5px;")
         self.unitInput.setObjectName("unitInput")
         self.unitInput.setAlignment(QtCore.Qt.AlignRight)
-        self.unitInput.setValidator(QtGui.QIntValidator(0,999))
         self.unitInput.hide()
         self.unit = QtWidgets.QLabel(self.subMenu)
         self.unit.setGeometry(QtCore.QRect(341, 41, 20, 17))
@@ -220,7 +219,7 @@ class Ui_CNC_Simulator(object):
 
     def RetranslateUi(self, CNC_Simulator):
         _translate = QtCore.QCoreApplication.translate
-        CNC_Simulator.setWindowTitle(_translate("CNC_Simulator", "MainWindow"))
+        CNC_Simulator.setWindowTitle(_translate("CNC_Simulator", "CNC Simulator - HNinc"))
         self.header.setText(_translate("CNC_Simulator", "CNC Simulator"))
         self.filePath.setText(_translate("CNC_Simulator", "Choose File.."))
         self.browsBtn.setText(_translate("CNC_Simulator", "Open"))
@@ -258,10 +257,12 @@ class Ui_CNC_Simulator(object):
             self.makeAnomal = False
             self.unit.setText('')
             self.anomalyLog = ''
+            self.unitInput.setValidator(QtGui.QIntValidator(0,99999999))
             return
         if self.kindOfAnomaly.currentIndex() > 0:
             self.makeAnomal = False
             self.unit.setText('%')
+            self.unitInput.setValidator(QtGui.QIntValidator(0,999))
             return
     
     def AnomalyUiAction(self):
