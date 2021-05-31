@@ -31,7 +31,7 @@
 --icon: 실행파일 아이콘 지정<br>
 -w: 콘솔화면 없이 실행<br>
 --name: 실행 파일 이름 지정<br>
-<br>
+
 ## 실행 화면
 ![image](https://user-images.githubusercontent.com/33340094/120144962-c6cb8980-c21d-11eb-8097-6af431078e6b.png)
 open: 파일 가져오기 버튼 <br>
