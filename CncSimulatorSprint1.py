@@ -4,10 +4,6 @@ from PyQt5.QtCore import QThread
 from kafka import KafkaProducer
 import threading
 
-
-from PyQt5 import QtCore, QtGui, QtWidgets
-
-
 class Ui_CNC_Simulator(object):
     def __init__(self):
         # self.history = os.path.isfile('./tmp')
@@ -17,20 +13,18 @@ class Ui_CNC_Simulator(object):
         self.start = 0
         self.end = 0
         self.logs = ''
-        self.sendDatas = ''
         self.interval = 0.05
         self.producer = KafkaProducer(bootstrap_servers=['9.8.100.152:9092'])
         self.topic = 'cnc_test'
         self.kafkaSendThread = threading.Thread(target=self.SendData, name="kafkaSendThread", args=())
         self.kafkaSendThread.start()
-        self.pause = False
         self.anomalyLog = ''
 
     def setupUi(self, CNC_Simulator):
         CNC_Simulator.setObjectName("CNC_Simulator")
         CNC_Simulator.resize(1256, 603)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./../../WAS/cnc_was/src/assets/logo2.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("D:/Users/1027a/Downloads/tmp/logo2.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         CNC_Simulator.setWindowIcon(icon)
         CNC_Simulator.setStyleSheet("background-color: #0a1a33;")
         self.centralwidget = QtWidgets.QWidget(CNC_Simulator)
@@ -100,25 +94,21 @@ class Ui_CNC_Simulator(object):
         self.intervalInput.setObjectName("intervalInput")
         self.intervalInput.setText("50")
 
-        self.startBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.startBtn.setGeometry(QtCore.QRect(19, 546, 190, 31))
-        self.startBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.startBtn.setStyleSheet("Color: white; background-color: #0F79DB; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
-        self.startBtn.setObjectName("startBtn")
+        self.startAndStopBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.startAndStopBtn.setGeometry(QtCore.QRect(21, 546, 280, 31))
+        self.startAndStopBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.startAndStopBtn.setStyleSheet("Color: white; background-color: #0F79DB; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
+        self.startAndStopBtn.setObjectName("startAndStopBtn")
         self.ms = QtWidgets.QLabel(self.centralwidget)
         self.ms.setGeometry(QtCore.QRect(567, 514, 27, 17))
         self.ms.setStyleSheet("Color: white; background-color: #092c4c; font: 75 11.5pt \"URW Gothic L\";")
         self.ms.setObjectName("ms")
-        self.pauseBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.pauseBtn.setGeometry(QtCore.QRect(214, 546, 190, 31))
-        self.pauseBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pauseBtn.setStyleSheet("Color: white; background-color: #0F79DB; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
-        self.pauseBtn.setObjectName("pauseBtn")
-        self.stopBtn = QtWidgets.QPushButton(self.centralwidget)
-        self.stopBtn.setGeometry(QtCore.QRect(409, 546, 190, 31))
-        self.stopBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.stopBtn.setStyleSheet("Color: white; background-color: #0F79DB; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
-        self.stopBtn.setObjectName("stopBtn")
+        self.pauseAndResumeBtn = QtWidgets.QPushButton(self.centralwidget)
+        self.pauseAndResumeBtn.setGeometry(QtCore.QRect(312, 546, 281, 31))
+        self.pauseAndResumeBtn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pauseAndResumeBtn.setStyleSheet("Color: white; background-color: #808080; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
+        self.pauseAndResumeBtn.setObjectName("pauseAndResumeBtn")
+        self.pauseAndResumeBtn.setEnabled(False)
         start = QtWidgets.QLabel(self.centralwidget)
         start.setGeometry(QtCore.QRect(29, 482, 176, 17))
         start.setStyleSheet("Color: white; background-color: #092c4c; font: 75 13pt \"URW Gothic L\";")
@@ -152,7 +142,7 @@ class Ui_CNC_Simulator(object):
         self.consoleHeader.setObjectName("consoleHeader")
         self.logo = QtWidgets.QLabel(self.centralwidget)
         self.logo.setGeometry(QtCore.QRect(10, 7, 71, 35))
-        self.logo.setStyleSheet("image: url(\'/home/rnd03/workspace/source/WAS/cnc_was/src/assets/logo.png\');")
+        self.logo.setStyleSheet("image: url(\'D:/Users/1027a/Downloads/tmp/logo.png\');")
         self.logo.setObjectName("logo")
         self.clear = QtWidgets.QPushButton(self.centralwidget)
         self.clear.setGeometry(QtCore.QRect(1168, 55, 61, 22))
@@ -225,10 +215,9 @@ class Ui_CNC_Simulator(object):
         self.browsBtn.setText(_translate("CNC_Simulator", "Open"))
         self.fileInfo.setText(_translate("CNC_Simulator", "File info"))
         self.tilde.setText(_translate("CNC_Simulator", "~"))
-        self.startBtn.setText(_translate("CNC_Simulator", "Start"))
+        self.startAndStopBtn.setText(_translate("CNC_Simulator", "Start"))
         self.ms.setText(_translate("CNC_Simulator", "ms"))
-        self.pauseBtn.setText(_translate("CNC_Simulator", "Pause"))
-        self.stopBtn.setText(_translate("CNC_Simulator", "Stop"))
+        self.pauseAndResumeBtn.setText(_translate("CNC_Simulator", "Pause"))
         self.consoleHeader.setText(_translate("CNC_Simulator", "Stream LoadSpindle"))
         self.clear.setText(_translate("CNC_Simulator", "Clear"))
         self.nomalORnot.setTitle(_translate("CNC_Simulator", "choose data type"))
@@ -241,9 +230,8 @@ class Ui_CNC_Simulator(object):
 
     def GiveActionToObject(self):
         self.browsBtn.clicked.connect(self.FileExplorer)
-        self.startBtn.clicked.connect(self.StartSendData)
-        self.stopBtn.clicked.connect(self.StopSendData)
-        self.pauseBtn.clicked.connect(self.PauseSendData)
+        self.startAndStopBtn.clicked.connect(self.StartAndStopData)
+        self.pauseAndResumeBtn.clicked.connect(self.PauseAndResumeData)
         self.clear.clicked.connect(self.ClearConsole)
         self.nomal.clicked.connect(self.AnomalyUiAction)
         self.anomaly.clicked.connect(self.AnomalyUiAction)
@@ -381,53 +369,59 @@ class Ui_CNC_Simulator(object):
             self.error.setText("시뮬레이터 성능을 위하여 interval의 최소 값은 10입니다.\ninterval을 확인해주세요.")
             self.error.exec()
             return False
-        return True
-
-    def PauseSendData(self):
-        check = self.CheckException()
-        if check:
-            if not self.flag:
-                self.error.setText("data가 전송중인지 확인해 주세요.")
-                self.error.exec()
-            else:
-                self.pause = True
-                self.flag = False
-                
+        return True                
     
-    def StopSendData(self):
+    def PauseAndResumeData(self):
         check = self.CheckException()
         if check:
-            if not self.flag and self.start == 0 and self.end== 0:
-                self.error.setText("data가 전송중인지 확인해 주세요.")
-                self.error.exec()
-            else:
+            if self.pauseAndResumeBtn.text() == 'Pause':
+                self.pauseAndResumeBtn.setText(QtCore.QCoreApplication.translate("CNC_Simulator", "Resume"))
                 self.flag = False
-                self.start = 0
-                self.end = 0
-
-    
-    def StartSendData(self):
-        check = self.CheckException()
-        if check:
-            if self.flag: 
-                self.error.setText("이미 data를 전송중 입니다.")
-                self.error.exec()
             else:
-                self.end = int(self.endIndex.text())
-                if not self.pause:
-                    self.start = int(self.startIndex.text())
-                    self.startTmp = self.start
-                else:
-                    if self.end < self.start:
-                        self.error.setText("현재 데이터 전송이 시작될 인덱스는 " +str(self.start) + "입니다.\n 시작 인덱스보다 끝 인덱스가 더 작습니다.\n 확인해주세요.")
-                        self.error.exec()
-                        return
-                    else:
-                        self.pause = False
-                self.interval = float(self.intervalInput.text()) / 1000
+                self.pauseAndResumeBtn.setText(QtCore.QCoreApplication.translate("CNC_Simulator", "Pause"))
                 self.flag = True
-        self.consoleLog.append("Start data transfer")
-        self.consoleLog.moveCursor(QtGui.QTextCursor.End)
+
+    
+    def StartAndStopData(self):
+        check = self.CheckException()
+        if check:
+            if self.startAndStopBtn.text() == 'Start':
+                self.startAndStopBtn.setText(QtCore.QCoreApplication.translate("CNC_Simulator", "Stop"))
+                self.startAndStopBtn.setStyleSheet("background-color: #bd253e; Color: white; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
+                self.pauseAndResumeBtn.setStyleSheet("background-color: #0F79DB;Color: white; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
+                self.pauseAndResumeBtn.setEnabled(True)
+                self.start = int(self.startIndex.text())
+                self.end = int(self.endIndex.text())
+                self.interval = int(self.intervalInput.text())/1000
+                self.startIndex.setReadOnly(True)
+                self.startIndex.setStyleSheet("background-color: #092c4c; Color: white; border: 1.5px solid gray; border-radius: 5px;")
+                self.endIndex.setReadOnly(True)
+                self.endIndex.setStyleSheet("background-color: #092c4c; Color: white; border: 1.5px solid gray; border-radius: 5px;")
+                self.intervalInput.setReadOnly(True)
+                self.intervalInput.setStyleSheet("background-color: #092c4c; Color: white; border: 1.5px solid gray; border-radius: 5px;")
+                if self.end <= self.start:
+                    self.error.setText("현재 데이터 전송이 시작될 인덱스는 " +str(self.start) + "입니다.\n 시작 인덱스보다 끝 인덱스가 더 작습니다.\n 확인해주세요.")
+                    self.error.exec()
+                else:
+                    self.flag = True
+                
+            else:       
+                self.startAndStopBtn.setText(QtCore.QCoreApplication.translate("CNC_Simulator", "Start"))
+                self.pauseAndResumeBtn.setText(QtCore.QCoreApplication.translate("CNC_Simulator", "Pause"))
+                self.startAndStopBtn.setStyleSheet("background-color: #0F79DB; Color: white; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
+                self.pauseAndResumeBtn.setEnabled(False)
+                self.pauseAndResumeBtn.setStyleSheet("background-color: #808080;Color: white; font: 75 13pt \"URW Gothic L\"; font-weight: 600; border-radius: 7px;")
+                self.flag = False
+                self.logs = self.logs[:-1]
+                self.consoleLog.append(self.logs)
+                self.consoleLog.moveCursor(QtGui.QTextCursor.End)
+                self.logs = ''
+                self.startIndex.setReadOnly(False)
+                self.startIndex.setStyleSheet("background-color: #3a475a; Color: white; border: 1.5px solid gray; border-radius: 5px;")
+                self.endIndex.setReadOnly(False)
+                self.endIndex.setStyleSheet("background-color: #3a475a; Color: white; border: 1.5px solid gray; border-radius: 5px;")
+                self.intervalInput.setReadOnly(False)
+                self.intervalInput.setStyleSheet("background-color: #3a475a; Color: white; border: 1.5px solid gray; border-radius: 5px;")
 
     def SendData(self): 
         sendInterval = 0
@@ -452,25 +446,24 @@ class Ui_CNC_Simulator(object):
                     line[1] = str(timeCurrent * 1000)
                     self.logs = self.logs + str(self.start) + '. ' + line[0] + ', ' + time.strftime('%Y-%m-%d %H:%M:%S.{}'.format(str(timeCurrent).split('.')[1][:3]), time.localtime(timeCurrent)) + ', ' + line[4] + ', ' + line[8] + ', ' + line[-4] + ', ' + line[-3]+ ', ' + line[-2] + ', ' + line[-1] + '\n' + self.anomalyLog
                     send = ','.join(line)
-                    self.sendDatas = self.sendDatas + send + '\n'
                     sendInterval += self.interval
                     send = send.encode('utf-8')
                     self.producer.send(self.topic,send)
                     self.start += 1
-                else:
+                    if self.end-self.start < 0.999/self.interval or sendInterval > 0.999:
+                        if self.logs != '':
+                            sendInterval = 0
+                            self.logs = self.logs[:-1]
+                            self.consoleLog.append(self.logs)
+                            self.consoleLog.moveCursor(QtGui.QTextCursor.End)
+                            self.logs = ''
+
+                else: # 전송이 완료되었을 때
                     self.consoleLog.append(str(self.end - self.startTmp +1 )+'개의 데이터를 전송을 완료했습니다.')
                     self.start = self.startTmp
-                    self.StopSendData()
+                    self.startAndStopBtn.setText(QtCore.QCoreApplication.translate("CNC_Simulator", "Stop"))
+                    self.StartAndStopData()
             time.sleep(self.interval)
-            if self.end-self.start < 0.999/self.interval or sendInterval > 0.999:
-                if self.logs != '':
-                    sendInterval = 0
-                    self.logs = self.logs[:-1]
-                    self.consoleLog.append(self.logs)
-                    self.consoleLog.moveCursor(QtGui.QTextCursor.End)
-                    self.sendDatas = self.sendDatas[:-1]
-                    self.sendDatas = ''
-                    self.logs = ''
 
 
 if __name__ == "__main__":
