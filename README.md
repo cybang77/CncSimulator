@@ -15,7 +15,7 @@
 --name: 실행 파일 이름 지정<br>
 
 ## 3. 실행 화면
-![image](https://user-images.githubusercontent.com/33340094/120144962-c6cb8980-c21d-11eb-8097-6af431078e6b.png)
+![image](https://user-images.githubusercontent.com/33340094/120320571-4ee48880-c31d-11eb-9199-74ab77114efe.png)
 open: 파일 가져오기 버튼 <br>
 file info: 가져온 파일 정보 내용 보여주는 콘솔<br>
 anomaly data type: load spindle 데이터를 일정한 값으로 치환하거나, 일정량 증가, 감소 시키는 컨트롤 박스<br>
