@@ -15,7 +15,7 @@ class Ui_CNC_Simulator(object):
         self.logs = ''
         self.interval = 0.05
         self.producer = KafkaProducer(bootstrap_servers=['9.8.100.152:9092'])
-        self.topic = 'cnc_test'
+        self.topic = 'MH001001001-CNC001'
         self.kafkaSendThread = threading.Thread(target=self.SendData, name="kafkaSendThread", args=())
         self.kafkaSendThread.start()
         self.anomalyLog = ''
@@ -23,9 +23,9 @@ class Ui_CNC_Simulator(object):
     def setupUi(self, CNC_Simulator):
         CNC_Simulator.setObjectName("CNC_Simulator")
         CNC_Simulator.resize(1256, 603)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("D:/Users/1027a/Downloads/tmp/logo2.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        CNC_Simulator.setWindowIcon(icon)
+        # icon = QtGui.QIcon()
+        # icon.addPixmap(QtGui.QPixmap("D:/Users/1027a/Downloads/tmp/logo2.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # CNC_Simulator.setWindowIcon(icon)
         CNC_Simulator.setStyleSheet("background-color: #0a1a33;")
         self.centralwidget = QtWidgets.QWidget(CNC_Simulator)
         self.centralwidget.setObjectName("centralwidget")
@@ -414,7 +414,7 @@ class Ui_CNC_Simulator(object):
                 self.flag = False
                 self.logs = self.logs[:-1]
                 self.consoleLog.append(self.logs)
-                self.consoleLog.moveCursor(QtGui.QTextCursor.End)
+                # self.consoleLog.moveCursor(QtGui.QTextCursor.End)
                 self.logs = ''
                 self.startIndex.setReadOnly(False)
                 self.startIndex.setStyleSheet("background-color: #3a475a; Color: white; border: 1.5px solid gray; border-radius: 5px;")
@@ -455,7 +455,7 @@ class Ui_CNC_Simulator(object):
                             sendInterval = 0
                             self.logs = self.logs[:-1]
                             self.consoleLog.append(self.logs)
-                            self.consoleLog.moveCursor(QtGui.QTextCursor.End)
+                            # self.consoleLog.moveCursor(QtGui.QTextCursor.End)
                             self.logs = ''
 
                 else: # 전송이 완료되었을 때
